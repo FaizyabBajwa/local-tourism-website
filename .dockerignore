@@ -1,0 +1,26 @@
+# Dependencies (will be installed fresh inside container)
+node_modules
+
+# Git files
+.git
+.gitignore
+
+# Build output (will be built fresh inside container)
+dist
+.parcel-cache
+
+# Documentation
+README.md
+
+# Environment files
+.env
+.env.local
+
+# Editor and OS files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -1,0 +1,22 @@
+{
+  "name": "local-tourism-website",
+  "version": "1.0.0",
+  "description": "A static website promoting local tourism, built collaboratively with Parcel and Docker.",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "keywords": [
+    "tourism",
+    "parcel",
+    "docker",
+    "static-website"
+  ],
+  "author": "Faizyab Ahmad",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  }
+}
