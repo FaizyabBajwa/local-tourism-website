@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wanderly Destinations — Browse 120+ breathtaking destinations across 6 continents, curated by travel experts." />
+  <title>Destinations — Wanderly</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['Poppins', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50:'#effaf5',100:'#d7f2e4',200:'#b0e4ca',300:'#7fd0ac',400:'#4cb88b',
+              500:'#2a9d71',600:'#1f7e5b',700:'#1b644a',800:'#17503d',900:'#134233'
+            },
+            sunset: { 400:'#ff9a5a', 500:'#ff7a2e', 600:'#f15f10' }
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.8s ease-out both',
+            'float': 'float 6s ease-in-out infinite'
+          },
+          keyframes: {
+            fadeUp: { '0%':{opacity:0,transform:'translateY(24px)'}, '100%':{opacity:1,transform:'translateY(0)'} },
+            float:  { '0%,100%':{transform:'translateY(0)'}, '50%':{transform:'translateY(-10px)'} }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+
+    .page-hero-bg {
+      background-image:
+        linear-gradient(to bottom, rgba(15,42,34,0.6), rgba(15,42,34,0.8)),
+        url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-lift { transition: transform .4s ease, box-shadow .4s ease; }
+    .card-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.25); }
+
+    .zoom-img { transition: transform .6s ease; }
+    .group:hover .zoom-img { transform: scale(1.08); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all .7s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f1f5f4; }
+    ::-webkit-scrollbar-thumb { background: #2a9d71; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: #1f7e5b; }
+  </style>
+</head>
+<body class="bg-white text-slate-800">
+
+  <!-- ========== NAVBAR ========== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-brand-900/95 backdrop-blur shadow-lg">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <a href="index.html" class="flex items-center gap-2 text-white">
+        <i class="fa-solid fa-compass text-2xl text-sunset-500"></i>
+        <span class="font-display text-2xl font-bold">Wanderly</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-white font-medium">
+        <li><a href="index.html" class="hover:text-sunset-400 transition">Home</a></li>
+        <li><a href="destinations.html" class="text-sunset-400 transition">Destinations</a></li>
+        <li><a href="packages.html" class="hover:text-sunset-400 transition">Packages</a></li>
+        <li><a href="gallery.html" class="hover:text-sunset-400 transition">Gallery</a></li>
+        <li><a href="reviews.html" class="hover:text-sunset-400 transition">Reviews</a></li>
+        <li><a href="contact.html" class="hover:text-sunset-400 transition">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="hidden md:inline-flex items-center gap-2 bg-sunset-500 hover:bg-sunset-600 text-white px-5 py-2 rounded-full font-semibold shadow-lg transition">
+        Book Now <i class="fa-solid fa-plane-departure"></i>
+      </a>
+      <button id="menuToggle" class="md:hidden text-white text-2xl" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </nav>
+    <div id="mobileMenu" class="md:hidden hidden bg-brand-900/95 backdrop-blur text-white px-6 py-4 space-y-3">
+      <a href="index.html" class="block py-2 border-b border-white/10">Home</a>
+      <a href="destinations.html" class="block py-2 border-b border-white/10 text-sunset-400">Destinations</a>
+      <a href="packages.html" class="block py-2 border-b border-white/10">Packages</a>
+      <a href="gallery.html" class="block py-2 border-b border-white/10">Gallery</a>
+      <a href="reviews.html" class="block py-2 border-b border-white/10">Reviews</a>
+      <a href="contact.html" class="block py-2">Contact</a>
+      <a href="contact.html" class="block text-center bg-sunset-500 text-white py-2 rounded-full mt-2">Book Now</a>
+    </div>
+  </header>
+
+  <!-- ========== PAGE HERO ========== -->
+  <section class="page-hero-bg text-white pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-6 text-center animate-fade-up">
+      <nav class="text-sm text-white/70 mb-4">
+        <a href="index.html" class="hover:text-sunset-400">Home</a>
+        <i class="fa-solid fa-chevron-right text-xs mx-2"></i>
+        <span class="text-white">Destinations</span>
+      </nav>
+      <h1 class="font-display text-5xl md:text-6xl font-bold">Explore Our <span class="text-sunset-400">Destinations</span></h1>
+      <p class="mt-4 text-lg text-white/80 max-w-2xl mx-auto">120+ breathtaking places across 6 continents. Find the perfect backdrop for your next story.</p>
+    </div>
+  </section>
+
+  <!-- ========== SEARCH & FILTERS ========== -->
+  <section class="py-12 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 reveal">
+        <div class="grid md:grid-cols-4 gap-4">
+          <label class="block md:col-span-2">
+            <span class="text-sm font-medium">Search destinations</span>
+            <div class="relative mt-1">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-brand-500"></i>
+              <input id="searchInput" type="text" placeholder="City, country, or keyword..." class="w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:outline-none">
+            </div>
+          </label>
+          <label class="block">
+            <span class="text-sm font-medium">Sort by</span>
+            <select id="sortSelect" class="w-full mt-1 px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:outline-none">
+              <option value="popular">Most Popular</option>
+              <option value="priceLow">Price: Low to High</option>
+              <option value="priceHigh">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sm font-medium">Max Budget</span>
+            <select id="budgetSelect" class="w-full mt-1 px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:outline-none">
+              <option value="99999">Any Budget</option>
+              <option value="1000">Under $1,000</option>
+              <option value="1500">Under $1,500</option>
+              <option value="2000">Under $2,000</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- Type filters -->
+      <div id="destFilters" class="flex flex-wrap justify-center gap-3 mt-8 reveal">
+        <button class="filter-btn active px-5 py-2 rounded-full font-medium bg-brand-500 text-white transition" data-filter="all">All</button>
+        <button class="filter-btn px-5 py-2 rounded-full font-medium bg-white text-slate-700 hover:bg-brand-100 transition" data-filter="beach"><i class="fa-solid fa-umbrella-beach mr-1"></i> Beach</button>
+        <button class="filter-btn px-5 py-2 rounded-full font-medium bg-white text-slate-700 hover:bg-brand-100 transition" data-filter="mountain"><i class="fa-solid fa-mountain mr-1"></i> Mountain</button>
+        <button class="filter-btn px-5 py-2 rounded-full font-medium bg-white text-slate-700 hover:bg-brand-100 transition" data-filter="city"><i class="fa-solid fa-city mr-1"></i> City</button>
+        <button class="filter-btn px-5 py-2 rounded-full font-medium bg-white text-slate-700 hover:bg-brand-100 transition" data-filter="desert"><i class="fa-solid fa-sun mr-1"></i> Desert</button>
+        <button class="filter-btn px-5 py-2 rounded-full font-medium bg-white text-slate-700 hover:bg-brand-100 transition" data-filter="cultural"><i class="fa-solid fa-landmark mr-1"></i> Cultural</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DESTINATIONS GRID ========== -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-8 reveal">
+        <p class="text-slate-600"><span id="resultCount" class="font-bold text-brand-600">0</span> destinations found</p>
+      </div>
+      <div id="destGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div id="noResults" class="hidden text-center py-16">
+        <i class="fa-solid fa-map-location-dot text-6xl text-slate-300"></i>
+        <h3 class="font-display text-2xl font-bold mt-4">No destinations found</h3>
+        <p class="text-slate-500 mt-2">Try adjusting your filters or search terms.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="py-20 bg-brand-700 text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center reveal">
+      <h2 class="font-display text-4xl md:text-5xl font-bold">Can't decide? <span class="text-sunset-400">Let us help.</span></h2>
+      <p class="mt-4 text-white/80 text-lg">Our travel consultants will craft a personalized itinerary based on your interests and budget.</p>
+      <a href="contact.html" class="inline-flex items-center gap-2 mt-8 bg-sunset-500 hover:bg-sunset-600 text-white px-8 py-3 rounded-full font-semibold transition">
+        Talk to an Expert <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-900 text-white/80 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+      <div>
+        <a href="index.html" class="flex items-center gap-2 text-white">
+          <i class="fa-solid fa-compass text-2xl text-sunset-500"></i>
+          <span class="font-display text-2xl font-bold">Wanderly</span>
+        </a>
+        <p class="mt-4 text-sm">Crafting unforgettable journeys since 2010. Travel smarter, explore deeper.</p>
+      </div>
+      <div>
+        <h5 class="text-white font-bold mb-4">Explore</h5>
+        <ul class="space-y-2 text-sm">
+          <li><a href="destinations.html" class="hover:text-sunset-400">Destinations</a></li>
+          <li><a href="packages.html" class="hover:text-sunset-400">Packages</a></li>
+          <li><a href="gallery.html" class="hover:text-sunset-400">Gallery</a></li>
+          <li><a href="reviews.html" class="hover:text-sunset-400">Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-white font-bold mb-4">Support</h5>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-sunset-400">Help Center</a></li>
+          <li><a href="#" class="hover:text-sunset-400">Booking FAQs</a></li>
+          <li><a href="#" class="hover:text-sunset-400">Cancellation</a></li>
+          <li><a href="#" class="hover:text-sunset-400">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-white font-bold mb-4">Newsletter</h5>
+        <p class="text-sm mb-3">Get travel tips and exclusive deals.</p>
+        <form id="newsletter" class="flex">
+          <input type="email" required placeholder="Your email" class="flex-1 px-4 py-2.5 rounded-l-lg text-slate-800 focus:outline-none" />
+          <button type="submit" class="bg-sunset-500 hover:bg-sunset-600 px-4 rounded-r-lg text-white"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+        <p id="newsStatus" class="text-xs mt-2 text-sunset-400 hidden">Thanks! You're subscribed.</p>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-6 text-sm text-center">
+      &copy; <span id="year"></span> Wanderly. All rights reserved. Made with <i class="fa-solid fa-heart text-sunset-500"></i> for travelers.
+    </div>
+  </footer>
+
+  <button id="scrollTop" class="fixed bottom-6 right-6 w-12 h-12 bg-brand-500 hover:bg-brand-600 text-white rounded-full shadow-lg opacity-0 pointer-events-none transition-all z-40" aria-label="Scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Scroll to top
+    const scrollTop = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTop.classList.remove('opacity-0', 'pointer-events-none');
+        scrollTop.classList.add('opacity-100');
+      } else {
+        scrollTop.classList.add('opacity-0', 'pointer-events-none');
+        scrollTop.classList.remove('opacity-100');
+      }
+    });
+    scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Destinations data
+    const destinations = [
+      { name:'Bali', country:'Indonesia', type:'beach', price:899, img:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', rating:4.8, popularity:95, desc:'Tropical paradise with lush rice terraces and spiritual temples.' },
+      { name:'Banff', country:'Canada', type:'mountain', price:1299, img:'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=800&q=80', rating:4.9, popularity:92, desc:'Turquoise lakes and snow-capped Rockies in a pristine wilderness.' },
+      { name:'Tokyo', country:'Japan', type:'city', price:1599, img:'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80', rating:4.7, popularity:98, desc:'Neon-lit skyscrapers meet ancient temples in this vibrant metropolis.' },
+      { name:'Marrakech', country:'Morocco', type:'desert', price:799, img:'https://images.unsplash.com/photo-1597212618440-806262de4f6b?auto=format&fit=crop&w=800&q=80', rating:4.6, popularity:85, desc:'Bustling souks, riads, and the gateway to the Sahara.' },
+      { name:'Phuket', country:'Thailand', type:'beach', price:699, img:'https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=800&q=80', rating:4.7, popularity:88, desc:'Crystal-clear waters, limestone cliffs, and world-class beaches.' },
+      { name:'Dolomites', country:'Italy', type:'mountain', price:1199, img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80', rating:4.9, popularity:82, desc:'Dramatic peaks, alpine meadows, and charming mountain villages.' },
+      { name:'New York', country:'USA', type:'city', price:1099, img:'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80', rating:4.6, popularity:94, desc:'The city that never sleeps, with icons at every corner.' },
+      { name:'Dubai', country:'UAE', type:'desert', price:1399, img:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80', rating:4.8, popularity:90, desc:'Futuristic skylines, golden dunes, and ultimate luxury.' },
+      { name:'Maldives', country:'Maldives', type:'beach', price:1799, img:'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80', rating:4.9, popularity:96, desc:'Overwater villas and coral reefs in a tropical utopia.' },
+      { name:'Kyoto', country:'Japan', type:'cultural', price:1499, img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80', rating:4.8, popularity:89, desc:'Ancient temples, zen gardens, and cherry blossom magic.' },
+      { name:'Santorini', country:'Greece', type:'beach', price:1299, img:'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80', rating:4.9, popularity:93, desc:'Whitewashed villages perched over the Aegean Sea.' },
+      { name:'Petra', country:'Jordan', type:'cultural', price:1099, img:'https://images.unsplash.com/photo-1563177682-82b2f4f62709?auto=format&fit=crop&w=800&q=80', rating:4.7, popularity:80, desc:'The rose-red ancient city carved into desert cliffs.' }
+    ];
+
+    const destGrid = document.getElementById('destGrid');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const budgetSelect = document.getElementById('budgetSelect');
+    const resultCount = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+
+    let currentFilter = 'all';
+
+    function render() {
+      const q = searchInput.value.trim().toLowerCase();
+      const budget = parseInt(budgetSelect.value);
+      const sort = sortSelect.value;
+
+      let list = destinations.filter(d => {
+        const matchesType = currentFilter === 'all' || d.type === currentFilter;
+        const matchesSearch = !q || d.name.toLowerCase().includes(q) || d.country.toLowerCase().includes(q) || d.type.toLowerCase().includes(q);
+        const matchesBudget = d.price <= budget;
+        return matchesType && matchesSearch && matchesBudget;
+      });
+
+      list.sort((a,b) => {
+        if (sort === 'priceLow') return a.price - b.price;
+        if (sort === 'priceHigh') return b.price - a.price;
+        if (sort === 'rating') return b.rating - a.rating;
+        return b.popularity - a.popularity;
+      });
+
+      resultCount.textContent = list.length;
+
+      if (list.length === 0) {
+        destGrid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+      noResults.classList.add('hidden');
+
+      destGrid.innerHTML = list.map(d => `
+        <article class="group relative rounded-2xl overflow-hidden shadow-md card-lift bg-white reveal">
+          <div class="relative h-64 overflow-hidden">
+            <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover zoom-img" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 right-4 bg-white/95 text-brand-700 text-xs font-bold px-3 py-1 rounded-full capitalize">
+              <i class="fa-solid fa-tag text-sunset-500 mr-1"></i>${d.type}
+            </span>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-2xl font-bold">${d.name}</h3>
+                <span class="flex items-center gap-1 text-sm bg-black/40 px-2 py-1 rounded-full">
+                  <i class="fa-solid fa-star text-yellow-400"></i> ${d.rating}
+                </span>
+              </div>
+              <p class="text-sm text-white/80"><i class="fa-solid fa-location-dot"></i> ${d.country}</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <p class="text-slate-500 text-sm mb-4">${d.desc}</p>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+              <div>
+                <span class="text-xs text-slate-500">From</span>
+                <div class="text-brand-600 font-bold text-xl">$${d.price}</div>
+              </div>
+              <a href="contact.html" class="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition flex items-center gap-2">
+                View <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      observeReveal();
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('active', 'bg-brand-500', 'text-white');
+          b.classList.add('bg-white', 'text-slate-700');
+        });
+        btn.classList.add('active', 'bg-brand-500', 'text-white');
+        btn.classList.remove('bg-white', 'text-slate-700');
+        currentFilter = btn.dataset.filter;
+        render();
+      });
+    });
+
+    searchInput.addEventListener('input', render);
+    sortSelect.addEventListener('change', render);
+    budgetSelect.addEventListener('change', render);
+
+    // Scroll reveal
+    function observeReveal() {
+      const items = document.querySelectorAll('.reveal:not(.visible)');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(i => obs.observe(i));
+    }
+
+    // Newsletter
+    document.getElementById('newsletter').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('newsStatus').classList.remove('hidden');
+      e.target.reset();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    render();
+    observeReveal();
+  </script>
+</body>
+</html>
